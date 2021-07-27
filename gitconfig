@@ -1,0 +1,48 @@
+[color]
+    ui = true
+    branch = true
+    diff = true
+    interactive = true
+    status = true
+[color "status"]
+    added = green
+    changed = red
+    deleted = red
+    untracked = yellow
+[user]
+	name = Randal Hanak
+	email = replace_here
+[push]
+    default = matching
+[alias]
+    # Get the current branch name (not so useful in itself, but used in
+    # other aliases)
+    branch-name = "!git rev-parse --abbrev-ref HEAD"
+    # Push the current branch to the remote "origin" and set it to track
+    publish = "!git push -u origin $(git branch-name)"
+
+    # Grab all the changes from upstream
+    fo = "!git fetch origin master"
+    # Rebase your branch against latest from master
+    ro = "!git rebase origin/master"
+
+    # Create a patch supplying a range of commits
+    fp = "format-patch"
+    # Apply it
+    ap = "apply"
+
+    # Check diff on stuff added to changes to be committed
+    dc="diff --cached"
+
+    # Remove the saved git credentials
+    ce="!git credential-osxkeychain erase"
+
+    # Create a local branch based off a pr in upstream
+    pr = "! pr() { \
+        git checkout master; \
+        git checkout -b pr/$1; \
+        git pull origin refs/pull/$1/head; \
+        }; pr"
+[core]
+	autocrlf = input
+
